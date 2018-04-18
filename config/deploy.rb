@@ -11,15 +11,16 @@ require 'mina/bundler'
 #   branch       - Branch name to deploy. (needed by mina/git)
 
 bundle_bin = 'bin/bundle'
+environment = ENV['on'] || 'staging'
 
-if fetch(:rails_env) == 'production'
+if environment == 'production'
   user = 'zepang'
   branch = 'master'
   domain = '139.196.127.134'
   deploy_to = '/home/zepang/zpt-api-production'
 else
   user = 'zepang'
-  # branch = File.read('.git/HEAD').gsub(/ref: refs\/heads\//, '').to_s
+  branch = File.read('.git/HEAD').gsub(/ref: refs\/heads\//, '').to_s
   branch = 'master'
   domain = '139.196.127.134'
   deploy_to = '/home/zepang/zpt-api-test'
