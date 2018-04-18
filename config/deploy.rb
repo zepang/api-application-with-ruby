@@ -1,8 +1,8 @@
 require 'mina/rails'
 require 'mina/git'
-# require 'mina/bundler'
+require 'mina/bundler'
 # require 'mina/rbenv'  # for rbenv support. (https://rbenv.org)
-# require 'mina/rvm'    # for rvm support. (https://rvm.io)
+require 'mina/rvm'    # for rvm support. (https://rvm.io)
 
 # Basic settings:
 #   domain       - The hostname to SSH to.
@@ -10,7 +10,7 @@ require 'mina/git'
 #   repository   - Git repo to clone from. (needed by mina/git)
 #   branch       - Branch name to deploy. (needed by mina/git)
 
-bundle_bin = '~/.rvm/gems/ruby-2.4.1/bin/bundle'
+bundle_bin = '/home/zepang/.rvm/gems/ruby-2.4.1/bin/bundle'
 environment = ENV['on'] || 'test'
 
 if environment == 'production'
@@ -24,7 +24,6 @@ else
   branch = 'master'
   domain = '139.196.127.134'
   deploy_to = '/home/zepang/zpt-api-test'
-  puts branch
 end
 
 
