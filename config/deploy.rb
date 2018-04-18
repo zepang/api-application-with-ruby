@@ -10,6 +10,8 @@ require 'mina/bundler'
 #   repository   - Git repo to clone from. (needed by mina/git)
 #   branch       - Branch name to deploy. (needed by mina/git)
 
+bundle_bin = 'bin/bundle'
+
 if fetch(:rails_env) == 'production'
   user = 'zepang'
   branch = 'master'
@@ -17,7 +19,8 @@ if fetch(:rails_env) == 'production'
   deploy_to = '/home/zepang/zpt-api-production'
 else
   user = 'zepang'
-  branch = File.read('.git/HEAD').gsub(/ref: refs\/heads\//, '')
+  # branch = File.read('.git/HEAD').gsub(/ref: refs\/heads\//, '').to_s
+  branch = 'master'
   domain = '139.196.127.134'
   deploy_to = '/home/zepang/zpt-api-test'
   puts branch
@@ -29,6 +32,7 @@ set :domain, domain
 set :deploy_to, deploy_to
 set :repository, 'git@github.com:zepang/zpt-api.git'
 set :branch, branch
+set :bundle_bin, bundle_bin
 
 # Optional settings:
 set :user, user          # Username in the server to SSH to.
