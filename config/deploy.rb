@@ -1,6 +1,6 @@
 require 'mina/rails'
 require 'mina/git'
-require 'mina/bundler'
+# require 'mina/bundler'
 # require 'mina/rbenv'  # for rbenv support. (https://rbenv.org)
 # require 'mina/rvm'    # for rvm support. (https://rvm.io)
 
@@ -10,8 +10,8 @@ require 'mina/bundler'
 #   repository   - Git repo to clone from. (needed by mina/git)
 #   branch       - Branch name to deploy. (needed by mina/git)
 
-bundle_bin = 'bin/bundle'
-environment = ENV['on'] || 'staging'
+bundle_bin = '~/.rvm/gems/ruby-2.4.1/bin/bundle'
+environment = ENV['on'] || 'test'
 
 if environment == 'production'
   user = 'zepang'
