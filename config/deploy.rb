@@ -10,7 +10,7 @@ require 'mina/rvm'    # for rvm support. (https://rvm.io)
 #   repository   - Git repo to clone from. (needed by mina/git)
 #   branch       - Branch name to deploy. (needed by mina/git)
 
-bundle_bin = '/home/zepang/.rvm/gems/ruby-2.4.1/bin/bundle'
+bundle_bin = '/home/zepang/.rvm/gems/ruby-2.4.1/wrappers//bundle'
 environment = ENV['on'] || 'test'
 
 if environment == 'production'
