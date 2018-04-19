@@ -1,6 +1,7 @@
 require 'mina/rails'
 require 'mina/git'
 require 'mina/bundler'
+require 'mina/dotenv'
 # require 'mina/rbenv'  # for rbenv support. (https://rbenv.org)
 require 'mina/rvm'    # for rvm support. (https://rvm.io)
 
@@ -71,6 +72,7 @@ task :deploy do
     # instance of your project.
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
+    invoke :'dotenv:push'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
