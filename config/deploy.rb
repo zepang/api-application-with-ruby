@@ -1,6 +1,7 @@
 require 'mina/rails'
 require 'mina/git'
 require 'mina/bundler'
+require 'mina/puma'
 # require 'mina/rbenv'  # for rbenv support. (https://rbenv.org)
 require 'mina/rvm'    # for rvm support. (https://rvm.io)
 
@@ -82,9 +83,7 @@ task :deploy do
       in_path(fetch(:current_path)) do
         command %{mkdir -p tmp/}
         command %{touch tmp/restart.txt}
-      end
-      in_path(fetch(:project_path)) do
-        command %{touch tmp/restart.txt}
+        invoke :'puma:phased_restart'
       end
     end
   end
