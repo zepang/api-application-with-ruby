@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.4.1'
 
-gem 'dotenv-rails'
+gem 'dotenv-rails', require: 'dotenv/rails-now'
 gem 'mina'
 gem 'mina-puma', :require => false
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
