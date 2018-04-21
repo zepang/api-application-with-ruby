@@ -83,6 +83,9 @@ task :deploy do
         command %{mkdir -p tmp/}
         command %{touch tmp/restart.txt}
       end
+      in_path(fetch(:project_path)) do
+        command %{touch tmp/restart.txt}
+      end
     end
   end
 
