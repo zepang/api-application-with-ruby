@@ -17,6 +17,12 @@ test:
   <<: *default
   database: <%= ENV["MYSQL_DATABASE"] %>_test
 
+staging:
+  <<: *default
+  database: <%= ENV["MYSQL_DATABASE"] %>_production
+  username: root
+  password: Zepang4?Mysql
+
 production:
   <<: *default
   database: <%= ENV["MYSQL_DATABASE"] %>_production

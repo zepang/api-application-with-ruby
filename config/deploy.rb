@@ -2,7 +2,7 @@ require 'mina/rails'
 require 'mina/git'
 require 'mina/bundler'
 require 'mina/puma'
-# require 'mina/rbenv'  # for rbenv support. (https://rbenv.org)
+require 'mina/scp'
 require 'mina/rvm'    # for rvm support. (https://rvm.io)
 
 # Basic settings:
@@ -12,7 +12,7 @@ require 'mina/rvm'    # for rvm support. (https://rvm.io)
 #   branch       - Branch name to deploy. (needed by mina/git)
 
 bundle_bin = '/home/zepang/.rvm/gems/ruby-2.4.1/wrappers//bundle'
-environment = ENV['on'] || 'test'
+environment = ENV['RAILS_ENV'] || 'staging'
 
 if environment == 'production'
   user = 'zepang'
@@ -62,6 +62,7 @@ end
 # All paths in `shared_dirs` and `shared_paths` will be created on their own.
 task :setup => :environment do
   # command %{rbenv install 2.3.0 --skip-existing}
+  scp_upload("#{Rails.root.join('.evn')}", "#{fetch(:deploy_to)}/shared/.env")
 end
 
 desc "Deploys the current version to the server."
