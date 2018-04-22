@@ -2,7 +2,6 @@ require 'mina/rails'
 require 'mina/git'
 require 'mina/bundler'
 require 'mina/puma'
-require 'mina/scp'
 require 'mina/rvm'    # for rvm support. (https://rvm.io)
 
 # Basic settings:
@@ -13,18 +12,21 @@ require 'mina/rvm'    # for rvm support. (https://rvm.io)
 
 bundle_bin = '/home/zepang/.rvm/gems/ruby-2.4.1/wrappers//bundle'
 environment = ENV['RAILS_ENV'] || 'staging'
+local_env = File.join(File.dirname(__FILE__), '../.env').to_s
 
 if environment == 'production'
   user = 'zepang'
   branch = 'master'
   domain = '139.196.127.134'
   deploy_to = '/home/zepang/zpt-api-production'
+  remote_env = "#{user}@#{domain}:#{deploy_to}#{fetch(:deploy_to)}/shared/.env"
 else
   user = 'zepang'
   branch = File.read('.git/HEAD').gsub(/ref: refs\/heads\//, '').to_s
   branch = 'master'
   domain = '139.196.127.134'
-  deploy_to = '/home/zepang/zpt-api-test'
+  deploy_to = '/home/zepang/zpt-api-staging'
+  remote_env = "#{user}@#{domain}:#{deploy_to}#{fetch(:deploy_to)}/shared/.env"
 end
 
 
@@ -62,7 +64,7 @@ end
 # All paths in `shared_dirs` and `shared_paths` will be created on their own.
 task :setup => :environment do
   # command %{rbenv install 2.3.0 --skip-existing}
-  scp_upload("#{Rails.root.join('.evn')}", "#{fetch(:deploy_to)}/shared/.env")
+  `scp -P 22 #{local_env} #{remote_env}`
 end
 
 desc "Deploys the current version to the server."
@@ -84,7 +86,6 @@ task :deploy do
       in_path(fetch(:current_path)) do
         command %{mkdir -p tmp/}
         command %{touch tmp/restart.txt}
-        invoke :'puma:phased_restart'
       end
     end
   end

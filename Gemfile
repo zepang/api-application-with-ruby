@@ -6,7 +6,6 @@ ruby '2.4.1'
 gem 'dotenv-rails', require: 'dotenv/rails-now'
 gem 'mina'
 gem 'mina-puma', :require => false
-gem 'mina-scp', require: false
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0'
 # Use sqlite3 as the database for Active Record
